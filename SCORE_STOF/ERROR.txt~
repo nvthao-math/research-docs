@@ -1,0 +1,29 @@
+2017-07-10 09:40:58,960 WARN org.apache.hadoop.hdfs.server.common.Storage: java.io.IOException: Incompatible clusterIDs in /home/cpu10869-local/workspace/tools/hadoop/hadoop_storage/hdfs/datanode: namenode clusterID = CID-47191263-b5b7-4a4d-b8b5-a78b782e66bb; datanode clusterID = CID-79a53373-9652-4c08-9735-b5972e0450ca
+2017-07-10 09:40:58,960 FATAL org.apache.hadoop.hdfs.server.datanode.DataNode: Initialization failed for Block pool <registering> (Datanode Uuid unassigned) service to localhost/127.0.0.1:54310. Exiting. 
+java.io.IOException: All specified directories are failed to load.
+	at org.apache.hadoop.hdfs.server.datanode.DataStorage.recoverTransitionRead(DataStorage.java:478)
+	at org.apache.hadoop.hdfs.server.datanode.DataNode.initStorage(DataNode.java:1358)
+	at org.apache.hadoop.hdfs.server.datanode.DataNode.initBlockPool(DataNode.java:1323)
+	at org.apache.hadoop.hdfs.server.datanode.BPOfferService.verifyAndSetNamespaceInfo(BPOfferService.java:317)
+	at org.apache.hadoop.hdfs.server.datanode.BPServiceActor.connectToNNAndHandshake(BPServiceActor.java:223)
+	at org.apache.hadoop.hdfs.server.datanode.BPServiceActor.run(BPServiceActor.java:802)
+	at java.lang.Thread.run(Thread.java:745)
+2017-07-10 09:40:58,961 WARN org.apache.hadoop.hdfs.server.datanode.DataNode: Ending block pool service for: Block pool <registering> (Datanode Uuid unassigned) service to localhost/127.0.0.1:54310
+2017-07-10 09:40:58,962 INFO org.apache.hadoop.hdfs.server.datanode.DataNode: Removed Block pool <registering> (Datanode Uuid unassigned)
+2017-07-10 09:41:00,962 WARN org.apache.hadoop.hdfs.server.datanode.DataNode: Exiting Datanode
+2017-07-10 09:41:00,964 INFO org.apache.hadoop.util.ExitUtil: Exiting with status 0
+2017-07-10 09:41:00,966 INFO org.apache.hadoop.hdfs.server.datanode.DataNode: SHUTDOWN_MSG: 
+
+
+===> SOLUTION
+mutiple time format datanode
+Your namenode and datanode cluster ID does not match, make sure to make them the same.
+
+In name node, change ur cluster id in the file located in:
+
+$ nano HADOOP_FILE_SYSTEM/namenode/current/VERSION 
+In data node you cluster id is stored in the file:
+
+$ nano HADOOP_FILE_SYSTEM/datanode/current/VERSION
+
+
